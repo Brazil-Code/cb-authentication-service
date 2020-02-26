@@ -69,7 +69,8 @@ public class UserService implements Serializable {
 			LOGGER.debug("[ UserIntegrationService.findByUsernameAndPassword ] - User found: " + userDTO.getUsername());
 			return userDTO;
 		} catch (Exception e) {
-			throw new UserServiceException("ERROR while searching for user: { " + username + " } in database");
+			LOGGER.error("[ UserIntegrationService.findByUsernameAndPassword ] - ERROR: ", e);
+			throw new UserServiceException("ERROR while searching for user: { " + username + " } in database: ");
 		} finally {
 			LOGGER.debug("[ UserIntegrationService.findByUsernameAndPassword ] - END");
 		}

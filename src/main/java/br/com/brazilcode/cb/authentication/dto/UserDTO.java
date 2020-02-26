@@ -20,6 +20,15 @@ public class UserDTO {
 	private String token;
 	private List<ProfileDTO> profiles = new ArrayList<>();
 
+	public UserDTO() {
+		super();
+	}
+
+	public UserDTO(Long id) {
+		super();
+		this.id = id;
+	}
+
 	public Long getId() {
 		return id;
 	}

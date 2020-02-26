@@ -16,6 +16,15 @@ public class ProfileDTO {
 	private String description;
 	private List<FunctionalityDTO> functionalities = new ArrayList<>();
 
+	public ProfileDTO() {
+		super();
+	}
+
+	public ProfileDTO(Long id) {
+		super();
+		this.id = id;
+	}
+
 	public Long getId() {
 		return id;
 	}

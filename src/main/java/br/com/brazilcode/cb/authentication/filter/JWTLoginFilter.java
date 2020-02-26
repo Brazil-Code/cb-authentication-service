@@ -64,6 +64,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
 			FilterChain filterChain, Authentication auth) throws IOException, ServletException {
 		try {
+			LOGGER.debug("[ JWTLoginFilter.successfulAuthentication ] - Successful Authentication");
 			UserDTO user = (UserDTO) auth.getDetails();
 			String JWT = Jwts.builder().setId(UUID.randomUUID().toString()).setSubject(auth.getName())
 					.claim(LoginConstants.USER_ID, user.getId())
@@ -73,6 +74,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 			user.setToken(LoginConstants.TOKEN_PREFIX + " " + JWT);
 			response.addHeader(LoginConstants.HEADER_STRING, user.getToken());
 
+			LOGGER.debug("[ JWTLoginFilter.successfulAuthentication ] - Updating user token");
 			this.userIntegrationService.updateToken(user);
 
 			response.getOutputStream().write(new ObjectMapper().writeValueAsBytes(user));
