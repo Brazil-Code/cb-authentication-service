@@ -56,8 +56,8 @@ public class AuthenticationService {
 			LOGGER.debug("[ AuthenticationService.login ] - Searching for user in database...");
 			final UserDTO user = userIntegrationService.findByUsernameAndPassword(username, password);
 
-			//final List<SimpleGrantedAuthority> authorities = user.getProfiles().stream()
-			//		.map(p -> new SimpleGrantedAuthority(p.getDescription())).collect(Collectors.toList());
+//			final List<SimpleGrantedAuthority> authorities = user.getProfiles().stream()
+//					.map(p -> new SimpleGrantedAuthority(p.getDescription())).collect(Collectors.toList());
 
 			final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username,
 					password);
