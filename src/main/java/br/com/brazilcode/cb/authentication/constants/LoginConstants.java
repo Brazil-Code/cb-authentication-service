@@ -10,8 +10,8 @@ package br.com.brazilcode.cb.authentication.constants;
  */
 public class LoginConstants {
 
-	public final static long EXPIRATIONTIME = 86_400_000; // 1 dia
-	public final static String SECRET = "518396A4A9DC4536E56BD17D91C31";
+	public final static long EXPIRATIONTIME = 86400000;
+	public final static String SECRET = "296372BA7674D7A8D4B4AFAF98823F96FAF0BC3BD1EE4EC88D0555264A335B5D";
 	public final static String TOKEN_PREFIX = "Bearer";
 	public final static String HEADER_STRING = "Authorization";
 	public final static String LOGIN_URI = "/login";
