@@ -63,8 +63,9 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
 			FilterChain filterChain, Authentication auth) throws IOException, ServletException {
+		String method = "[ JWTLoginFilter.successfulAuthentication ] - ";
 		try {
-			LOGGER.debug("[ JWTLoginFilter.successfulAuthentication ] - Successful Authentication");
+			LOGGER.debug(method + "Successful Authentication");
 			UserDTO user = (UserDTO) auth.getDetails();
 			String JWT = Jwts.builder().setId(UUID.randomUUID().toString()).setSubject(auth.getName())
 					.claim(LoginConstants.USER_ID, user.getId())
@@ -74,13 +75,13 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 			user.setToken(LoginConstants.TOKEN_PREFIX + " " + JWT);
 			response.addHeader(LoginConstants.HEADER_STRING, user.getToken());
 
-			LOGGER.debug("[ JWTLoginFilter.successfulAuthentication ] - Updating user token");
+			LOGGER.debug(method + "Updating user token");
 			this.userIntegrationService.updateToken(user);
 
 			response.getOutputStream().write(new ObjectMapper().writeValueAsBytes(user));
 			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		} catch (final Exception e) {
-			LOGGER.error("[ JWTLoginFilter.successfulAuthentication ] - ERROR: ", e);
+			LOGGER.error(method + "ERROR: ", e);
 			throw new ServletException("ERROR during authentication", e);
 		}
 	}

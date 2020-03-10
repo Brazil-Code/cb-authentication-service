@@ -44,7 +44,8 @@ public class AuthenticationService {
 	 */
 	public Authentication login(final HttpServletRequest request)
 			throws AuthenticationException, IOException, ServletException {
-		LOGGER.debug("[ AuthenticationService.login ] - BEGIN");
+		String method = "[ AuthenticationService.login ] - ";
+		LOGGER.debug(method + "BEGIN");
 
 		final AccountCredentialsDTO credentials = new ObjectMapper().readValue(request.getInputStream(),
 				AccountCredentialsDTO.class);
@@ -53,22 +54,19 @@ public class AuthenticationService {
 		final String username = credentials.getUsername(), password = credentials.getPassword();
 
 		try {
-			LOGGER.debug("[ AuthenticationService.login ] - Searching for user in database...");
+			LOGGER.debug(method + "Searching for user in database...");
 			final UserDTO user = userIntegrationService.findByUsernameAndPassword(username, password);
-
-			//final List<SimpleGrantedAuthority> authorities = user.getProfiles().stream()
-			//		.map(p -> new SimpleGrantedAuthority(p.getDescription())).collect(Collectors.toList());
 
 			final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username,
 					password);
 			authToken.setDetails(user);
 
-			LOGGER.debug("[ AuthenticationService.login ] - Returning authentication token...");
+			LOGGER.debug(method + "Returning authentication token...");
 			return authToken;
 		} catch (final Exception e) {
-			throw new ServletException("[ AuthenticationService.login ] - ERROR during authentication", e);
+			throw new ServletException(method + "ERROR during authentication", e);
 		} finally {
-			LOGGER.debug("[ AuthenticationService.login ] - END");
+			LOGGER.debug(method + "END");
 		}
 	}
 
