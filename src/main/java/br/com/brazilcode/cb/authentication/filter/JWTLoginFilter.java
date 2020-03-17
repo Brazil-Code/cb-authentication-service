@@ -63,7 +63,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
 			FilterChain filterChain, Authentication auth) throws IOException, ServletException {
-		String method = "[ JWTLoginFilter.successfulAuthentication ] - ";
+		final String method = "[ JWTLoginFilter.successfulAuthentication ] - ";
 		try {
 			LOGGER.debug(method + "Successful Authentication");
 			UserDTO user = (UserDTO) auth.getDetails();

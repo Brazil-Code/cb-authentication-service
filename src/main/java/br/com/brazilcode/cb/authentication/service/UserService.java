@@ -54,7 +54,7 @@ public class UserService implements Serializable {
 	 * @throws UserServiceException
 	 */
 	public UserDTO findByUsernameAndPassword(String username, String password) throws UserServiceException {
-		String method = "[ UserIntegrationService.findByUsernameAndPassword ] - ";
+		final String method = "[ UserIntegrationService.findByUsernameAndPassword ] - ";
 		LOGGER.debug(method + "BEGIN");
 
 		try {
@@ -88,7 +88,7 @@ public class UserService implements Serializable {
 	 * @throws UsuarioServiceException
 	 */
 	public void updateToken(UserDTO user) throws UserServiceException {
-		String method = "[ UserService.updateToken ] - ";
+		final String method = "[ UserService.updateToken ] - ";
 		LOGGER.debug(method + "BEGIN");
 		LOGGER.debug(method + "User ID: " + user.getId());
 		try {
