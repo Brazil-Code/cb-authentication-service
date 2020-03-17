@@ -44,7 +44,7 @@ public class AuthenticationService {
 	 */
 	public Authentication login(final HttpServletRequest request)
 			throws AuthenticationException, IOException, ServletException {
-		String method = "[ AuthenticationService.login ] - ";
+		final String method = "[ AuthenticationService.login ] - ";
 		LOGGER.debug(method + "BEGIN");
 
 		final AccountCredentialsDTO credentials = new ObjectMapper().readValue(request.getInputStream(),
