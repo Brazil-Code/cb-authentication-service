@@ -15,6 +15,15 @@ public class FunctionalityDTO {
 	private String uri;
 	private Integer action;
 
+	public FunctionalityDTO() {
+		super();
+	}
+
+	public FunctionalityDTO(Long id) {
+		this();
+		this.id = id;
+	}
+
 	public Long getId() {
 		return id;
 	}

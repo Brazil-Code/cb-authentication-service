@@ -2,7 +2,6 @@ package br.com.brazilcode.cb.authentication.service;
 
 import java.io.Serializable;
 
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import br.com.brazilcode.cb.authentication.dto.UserDTO;
 import br.com.brazilcode.cb.authentication.exception.CbAuthenticationException;
 import br.com.brazilcode.cb.authentication.exception.UserServiceException;
+import br.com.brazilcode.cb.authentication.utils.CryptPasswordGeneratorUtils;
 import br.com.brazilcode.cb.authentication.utils.MapperUtils;
 import br.com.brazilcode.cb.libs.model.User;
 import br.com.brazilcode.cb.libs.repository.UserRepository;
@@ -39,6 +39,9 @@ public class UserService implements Serializable {
 	@Autowired
 	private MapperUtils mapperUtils;
 
+	@Autowired
+	private CryptPasswordGeneratorUtils cryptUtils;
+
 	/**
 	 * Método responsável por buscar um usuário no banco de dados pelo username e
 	 * password.
@@ -51,28 +54,28 @@ public class UserService implements Serializable {
 	 * @throws UserServiceException
 	 */
 	public UserDTO findByUsernameAndPassword(String username, String password) throws UserServiceException {
-		LOGGER.debug("[ UserIntegrationService.findByUsernameAndPassword ] - BEGIN");
+		final String method = "[ UserIntegrationService.findByUsernameAndPassword ] - ";
+		LOGGER.debug(method + "BEGIN");
 
 		try {
-			// TODO: Melhorar a criptografia da senha -> Atual: Base64
-			LOGGER.debug("[ UserIntegrationService.findByUsernameAndPassword ] - Encrypting password");
-			String passwordEncoded = Base64.encodeBase64String(password.getBytes());
+			LOGGER.debug(method + "Encrypting password");
+			String passwordEncoded = cryptUtils.cryptString(password);
 			User user = userDAO.findByUsernameAndPassword(username, passwordEncoded);
 
 			if (user == null) {
-				LOGGER.error("[ UserIntegrationService.findByUsernameAndPassword ] - Invalid username/password");
+				LOGGER.error(method + "Invalid username/password");
 				throw new UserServiceException("Invalid username/password");
 			}
 
 			UserDTO userDTO = mapperUtils.parse(user, UserDTO.class);
 
-			LOGGER.debug("[ UserIntegrationService.findByUsernameAndPassword ] - User found: " + userDTO.getUsername());
+			LOGGER.debug(method + "User found: " + userDTO.getUsername());
 			return userDTO;
 		} catch (Exception e) {
-			LOGGER.error("[ UserIntegrationService.findByUsernameAndPassword ] - ERROR: ", e);
+			LOGGER.error(method + "ERROR: ", e);
 			throw new UserServiceException("ERROR while searching for user: { " + username + " } in database: ");
 		} finally {
-			LOGGER.debug("[ UserIntegrationService.findByUsernameAndPassword ] - END");
+			LOGGER.debug(method + "END");
 		}
 	}
 
@@ -85,19 +88,20 @@ public class UserService implements Serializable {
 	 * @throws UsuarioServiceException
 	 */
 	public void updateToken(UserDTO user) throws UserServiceException {
-		LOGGER.debug("[ UserService.updateToken ] - BEGIN");
-		LOGGER.debug("[ UserService.updateToken ] - User ID: " + user.getId());
+		final String method = "[ UserService.updateToken ] - ";
+		LOGGER.debug(method + "BEGIN");
+		LOGGER.debug(method + "User ID: " + user.getId());
 		try {
 			if (user.getId() != null) {
 				userDAO.updateTokenById(user.getToken(), user.getId());
 			} else {
-				throw new UserServiceException("[ UserService.updateToken ] - No user ID informed");
+				throw new UserServiceException(method + "No user ID informed");
 			}
 		} catch (Exception e) {
-			LOGGER.error("[ UserService.updateToken ] - ERROR: ", e);
-			throw new UserServiceException("[ UserService.updateToken ] - ERROR while updating user: " + user);
+			LOGGER.error(method + "ERROR: ", e);
+			throw new UserServiceException(method + "ERROR while updating user: " + user);
 		} finally {
-			LOGGER.debug("[ UserService.updateToken ] - END");
+			LOGGER.debug(method + "END");
 		}
 	}
 

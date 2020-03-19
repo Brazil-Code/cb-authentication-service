@@ -21,7 +21,7 @@ public class ProfileDTO {
 	}
 
 	public ProfileDTO(Long id) {
-		super();
+		this();
 		this.id = id;
 	}
 
