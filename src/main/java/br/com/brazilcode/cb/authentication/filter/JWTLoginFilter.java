@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -24,7 +25,9 @@ import br.com.brazilcode.cb.authentication.constants.LoginConstants;
 import br.com.brazilcode.cb.authentication.dto.UserDTO;
 import br.com.brazilcode.cb.authentication.service.AuthenticationService;
 import br.com.brazilcode.cb.authentication.service.UserService;
+import br.com.brazilcode.cb.authentication.service.integration.LogIntegrationService;
 import br.com.brazilcode.cb.authentication.utils.BeanUtils;
+import br.com.brazilcode.cb.libs.enumerator.LogActivityTypeEnum;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -38,20 +41,22 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(JWTLoginFilter.class);
+
+	@Autowired
 	private AuthenticationService authenticationService;
+
+	@Autowired
 	private UserService userIntegrationService;
 
-	/**
-	 * Construtor da classe JWTLoginFilter
-	 *
-	 * @param url
-	 * @param authManager
-	 */
+	@Autowired
+	private LogIntegrationService logIntegrationService;
+
 	public JWTLoginFilter(String url, AuthenticationManager authManager) {
 		super(new AntPathRequestMatcher(url));
 		setAuthenticationManager(authManager);
 		this.authenticationService = BeanUtils.getBean(AuthenticationService.class);
 		this.userIntegrationService = BeanUtils.getBean(UserService.class);
+		this.logIntegrationService = BeanUtils.getBean(LogIntegrationService.class);
 	}
 
 	@Override
@@ -80,8 +85,12 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
 			response.getOutputStream().write(new ObjectMapper().writeValueAsBytes(user));
 			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+
+			LOGGER.debug(method + "Registering activity log");
+			final String description = LogActivityTypeEnum.LOG_IN.getDescription();
+			this.logIntegrationService.createLog(user.getId(), description, user.getToken());
 		} catch (final Exception e) {
-			LOGGER.error(method + "ERROR: ", e);
+			LOGGER.error(method + "ERROR: " + e.getMessage(), e);
 			throw new ServletException("ERROR during authentication", e);
 		}
 	}
