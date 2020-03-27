@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.brazilcode.cb.authentication.dto.UserDTO;
-import br.com.brazilcode.cb.authentication.exception.CbAuthenticationException;
 import br.com.brazilcode.cb.authentication.exception.UserServiceException;
 import br.com.brazilcode.cb.authentication.utils.CryptPasswordGeneratorUtils;
 import br.com.brazilcode.cb.authentication.utils.MapperUtils;
@@ -50,7 +49,6 @@ public class UserService implements Serializable {
 	 * @param username
 	 * @param password
 	 * @return
-	 * @throws CbAuthenticationException
 	 * @throws UserServiceException
 	 */
 	public UserDTO findByUsernameAndPassword(String username, String password) throws UserServiceException {
@@ -84,7 +82,6 @@ public class UserService implements Serializable {
 	 *
 	 * @author Brazil Code - Gabriel Guarido
 	 * @param usuario
-	 * @throws IsaAuthenticationException
 	 * @throws UsuarioServiceException
 	 */
 	public void updateToken(UserDTO user) throws UserServiceException {
