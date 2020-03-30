@@ -30,7 +30,7 @@ public class AuthenticationService {
 	 * Atributo usuarioIntegrationService
 	 */
 	@Autowired
-	private UserService userIntegrationService;
+	private UserService userService;
 
 	/**
 	 * Escopo de método de serviço para implementação do login na aplicação.
@@ -50,12 +50,11 @@ public class AuthenticationService {
 		final AccountCredentialsDTO credentials = new ObjectMapper().readValue(request.getInputStream(),
 				AccountCredentialsDTO.class);
 
-		// Recuperando usuário e senha das credenciais da conta
 		final String username = credentials.getUsername(), password = credentials.getPassword();
 
 		try {
 			LOGGER.debug(method + "Searching for user in database...");
-			final UserDTO user = userIntegrationService.findByUsernameAndPassword(username, password);
+			final UserDTO user = userService.findByUsernameAndPassword(username, password);
 
 			final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username,
 					password);
