@@ -1,4 +1,4 @@
-package br.com.brazilcode.cb.authentication.configuration;
+package br.com.brazilcode.cb.authentication.configuration.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ import br.com.brazilcode.cb.authentication.filter.JWTLoginFilter;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private JWTAuthenticationTokenParserFilter authenticationFilter;
