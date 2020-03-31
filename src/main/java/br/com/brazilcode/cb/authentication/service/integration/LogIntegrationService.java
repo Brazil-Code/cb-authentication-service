@@ -1,7 +1,6 @@
 package br.com.brazilcode.cb.authentication.service.integration;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +52,7 @@ public class LogIntegrationService implements Serializable {
 		final String url = administrationServiceURL + "logs";
 
 		LOGGER.debug(method + "User ID: " + userId);
-		LogDTO logDTO = new LogDTO(userId, description, String.valueOf(Calendar.getInstance()));
+		LogDTO logDTO = new LogDTO(userId, description);
 
 		LOGGER.debug(method + "Setting HTTP Headers");
 		HttpHeaders headers = new HttpHeaders();
