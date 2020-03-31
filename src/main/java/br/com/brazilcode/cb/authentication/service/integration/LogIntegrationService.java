@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,8 +35,8 @@ public class LogIntegrationService implements Serializable {
 	private String administrationServiceURL;
 
 	/**
-	 * Método responsável por fazer uma chamada via REST para o serviço de gravação
-	 * de Logs.
+	 * Método assíncrono responsável por fazer uma chamada via REST para o serviço
+	 * de gravação de Logs.
 	 * 
 	 * @author Brazil Code - Gabriel Guarido
 	 * @param userId
@@ -43,6 +44,7 @@ public class LogIntegrationService implements Serializable {
 	 * @param authorization
 	 * @throws LogIntegrationServiceException
 	 */
+	@Async
 	public void createLog(Long userId, String description, String authorization) throws LogIntegrationServiceException {
 		final String method = "[ LogIntegrationService ] - ";
 		LOGGER.debug(method + "BEGIN");
