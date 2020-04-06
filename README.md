@@ -14,4 +14,4 @@ Authentication module of the Clean Budget project
 ## Release Notes
 | Starting Date | Last Deploy | Version |
 |---|---|---|
-| Feb 25 | Mar 31 2020 | 1.3.2 |
+| Feb 25 2020 | Mar 31 2020 | 1.3.2 |
