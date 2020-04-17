@@ -13,6 +13,7 @@ import java.util.List;
 public class UserDTO {
 
 	private Long id;
+	private AreaDTO area;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -26,6 +27,14 @@ public class UserDTO {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public AreaDTO getArea() {
+		return area;
+	}
+
+	public void setArea(AreaDTO area) {
+		this.area = area;
 	}
 
 	public String getFirstName() {

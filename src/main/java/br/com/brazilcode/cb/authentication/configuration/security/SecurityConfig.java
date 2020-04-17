@@ -1,4 +1,4 @@
-package br.com.brazilcode.cb.authentication.configuration;
+package br.com.brazilcode.cb.authentication.configuration.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -24,10 +24,17 @@ import br.com.brazilcode.cb.authentication.filter.JWTLoginFilter;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private JWTAuthenticationTokenParserFilter authenticationFilter;
+
+	private static final String[] AUTH_WHITELIST = {
+	        "/swagger-resources/**",
+	        "/swagger-ui.html",
+	        "/v2/api-docs",
+	        "/webjars/**"
+	};
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -35,7 +42,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.csrf().disable().authorizeRequests().antMatchers("/").permitAll()
 				.antMatchers(HttpMethod.POST, LoginConstants.LOGIN_URI).permitAll()
-				.antMatchers(HttpMethod.GET, LoginConstants.SERVER_DATE_URI).permitAll().anyRequest().authenticated()
+				.antMatchers(HttpMethod.GET, LoginConstants.SERVER_DATE_URI).permitAll()
+				.antMatchers(AUTH_WHITELIST).permitAll()
+				.anyRequest().authenticated()
 				.and()
 				// Filtrando requisicoes api/login
 				.addFilterBefore(new JWTLoginFilter(LoginConstants.LOGIN_URI, authenticationManager()),
