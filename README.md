@@ -16,3 +16,6 @@
 | :rocket: Kick Off | Last Deploy | Version |
 |---|---|---|
 | Feb 25 2020 | Mar 31 2020 | 1.3.2 |
+
+## :memo: License
+This project is under MIT license. Check the file [LICENSE](LICENSE) for more information.
