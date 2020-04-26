@@ -22,8 +22,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
 /**
- * Classe responsável por aplicar o filtro de verificação do JWT nas
- * requisições.
+ * Classe responsável por aplicar o filtro de verificação do JWT nas requisições.
  *
  * @author Brazil Code - Gabriel Guarido
  * @since 25 de fev de 2020 13:28:45
@@ -42,13 +41,13 @@ public class JWTAuthenticationTokenParserFilter extends GenericFilterBean {
 
 		if (token != null) {
 			try {
-				// Faz o parse do token
+				// Parse token
 				Claims claims = Jwts.parser().setSigningKey(LoginConstants.SECRET)
 						.parseClaimsJws(token.replace(LoginConstants.TOKEN_PREFIX, "")).getBody();
 				if (claims != null) {
 					final String subject = claims.getSubject();
 
-					// Adiciona apenas o id e o username do usuario no objeto de autenticacao
+					// Adds the ID and Username on authentication`s object
 					final UserDTO user = new UserDTO();
 					user.setId(((Integer) claims.get(LoginConstants.USER_ID)).longValue());
 					user.setUsername(subject);
@@ -56,8 +55,7 @@ public class JWTAuthenticationTokenParserFilter extends GenericFilterBean {
 					SecurityContextHolder.getContext().setAuthentication(authentication);
 				}
 			} catch (Exception e) {
-				LOGGER.error("JWT - Token invalido: {} - {} - Erro: {}", token, servletRequest.getRequestURI(),
-						e.getMessage());
+				LOGGER.error("JWT - Invalid Token: {} - {} - ERROR: {}", token, servletRequest.getRequestURI(), e.getMessage());
 			}
 		}
 

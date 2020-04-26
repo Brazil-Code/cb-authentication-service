@@ -11,9 +11,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.brazilcode.cb.libs.model.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * Class responsible for exposing an endpoint for {@link User} authentication.
+ *
+ * @author Brazil Code - Gabriel Guarido
+ * @since Apr 26, 2020 1:44:58 AM
+ * @version 1.0
+ */
 @RestController
 @RequestMapping("/")
 @Api(value = "REST API for Authentication")
@@ -23,7 +31,7 @@ public class AuthenticationController {
 	private final static long jvmStartTime = ManagementFactory.getRuntimeMXBean().getStartTime();
 
 	/**
-	 * Método responsável por fazer a validação do token JWT.
+	 * Method responsible for validating JWT token.
 	 *
 	 * @author Brazil Code - Gabriel Guarido
 	 * @param auth
@@ -36,8 +44,7 @@ public class AuthenticationController {
 	}
 
 	/**
-	 * Método responsável por retornar a data e hora de inicialização da JVM para
-	 * este server.
+	 * Method responsible for returning JVM starting timestamp.
 	 *
 	 * @author Brazil Code - Gabriel Guarido
 	 * @return

@@ -8,17 +8,17 @@ import java.security.NoSuchAlgorithmException;
 import org.springframework.stereotype.Component;
 
 /**
- * Classe utilitária para geração de senhas encriptadas.
+ * Utility class for generating encrypted passwords.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 9 de mar de 2020 22:48:17
+ * @since Apr 26, 2020 2:03:00 AM
  * @version 1.0
  */
 @Component
 public class CryptPasswordGeneratorUtils {
 
 	/**
-	 * Método responsável por criptografar uma String usando a hash SHA-256.
+	 * Method responsible for encrypting a String using SHA-256 hash.
 	 *
 	 * @author Brazil Code - Gabriel Guarido
 	 * @param string

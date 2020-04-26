@@ -16,11 +16,10 @@ import br.com.brazilcode.cb.authentication.exception.integration.LogIntegrationS
 import br.com.brazilcode.cb.libs.dto.LogDTO;
 
 /**
- * Classe responsável por fazer a integração via REST com o serviço de Logs do
- * módulo Administration.
+ * Class responsible for integrating with the Log Service of the Administration module.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 26 de mar de 2020 23:06:06
+ * @since Apr 26, 2020 1:57:47 AM
  * @version 1.0
  */
 @Service
@@ -34,9 +33,8 @@ public class LogIntegrationService implements Serializable {
 	private String administrationServiceURL;
 
 	/**
-	 * Método assíncrono responsável por fazer uma chamada via REST para o serviço
-	 * de gravação de Logs.
-	 * 
+	 * Async method responsible for integrating with the LOGs creation API via POST request.
+	 *
 	 * @author Brazil Code - Gabriel Guarido
 	 * @param userId
 	 * @param description

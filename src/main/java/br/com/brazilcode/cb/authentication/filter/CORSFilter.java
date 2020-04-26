@@ -18,18 +18,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 /**
- * Classe responsável por aplicar o filtro CORS para as requisições.
+ * Class responsible for applying the CORS filter to requests.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 25 de fev de 2020 14:55:57
+ * @since Apr 26, 2020 1:52:11 AM
  * @version 1.0
  */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CORSFilter implements Filter {
 
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
-			throws IOException, ServletException {
+	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 		HttpServletResponse response = (HttpServletResponse) res;
 		HttpServletRequest request = (HttpServletRequest) req;
 		response.setHeader("Access-Control-Allow-Origin", "*");
@@ -47,11 +46,11 @@ public class CORSFilter implements Filter {
 	}
 
 	public void init(FilterConfig filterConfig) {
-		//
+		
 	}
 
 	public void destroy() {
-		//
+		
 	}
 
 }

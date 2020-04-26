@@ -6,10 +6,10 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 /**
- * Classe responsável por habilitar assincronidade na aplicação.
+ * Class responsible to enable async methods in the application.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 31 de mar de 2020 15:11:30
+ * @since Apr 26, 2020 1:39:06 AM
  * @version 1.0
  */
 @Configuration

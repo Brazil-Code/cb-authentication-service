@@ -3,13 +3,19 @@ package br.com.brazilcode.cb.authentication.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.brazilcode.cb.libs.model.User;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
- * Classe responsável por agrupar e mapear as informações do UserDTO.
+ * Class responsible for grouping and mapping {@link User} information.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 25 de fev de 2020 13:33:52
- * @version 1.0
+ * @since Apr 26, 2020 1:34:09 AM
+ * @version 2.0
  */
+@Getter
+@Setter
 public class UserDTO {
 
 	private Long id;
@@ -20,69 +26,5 @@ public class UserDTO {
 	private String username;
 	private String token;
 	private List<ProfileDTO> profiles = new ArrayList<>();
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public AreaDTO getArea() {
-		return area;
-	}
-
-	public void setArea(AreaDTO area) {
-		this.area = area;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
-
-	public List<ProfileDTO> getProfiles() {
-		return profiles;
-	}
-
-	public void setProfiles(List<ProfileDTO> profiles) {
-		this.profiles = profiles;
-	}
 
 }

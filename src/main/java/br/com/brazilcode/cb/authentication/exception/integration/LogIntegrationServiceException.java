@@ -1,11 +1,10 @@
 package br.com.brazilcode.cb.authentication.exception.integration;
 
 /**
- * Classe responsável por configurar uma exceção personalizada para o módulo de
- * administração.
+ * Class responsible for creating a customized Exception for Log Integration errors.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 26 de mar de 2020 23:19:35
+ * @since Apr 26, 2020 1:49:18 AM
  * @version 1.0
  */
 public class LogIntegrationServiceException extends Exception {

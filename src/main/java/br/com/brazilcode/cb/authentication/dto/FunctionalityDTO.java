@@ -1,67 +1,31 @@
 package br.com.brazilcode.cb.authentication.dto;
 
+import br.com.brazilcode.cb.libs.model.Functionality;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
- * Classe responsável por agrupar e mapear as informações do FunctionalityDTO.
+ * Class responsible for grouping and mapping {@link Functionality} information.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 25 de fev de 2020 13:58:20
- * @version 1.0
+ * @since Apr 26, 2020 1:34:39 AM
+ * @version 2.0
  */
+@Getter
+@Setter
+@NoArgsConstructor
 public class FunctionalityDTO {
 
 	private Long id;
 	private String description;
-	private boolean disabled;
+	private boolean disabled = false;
 	private String uri;
 	private Integer action;
-
-	public FunctionalityDTO() {
-		super();
-	}
 
 	public FunctionalityDTO(Long id) {
 		this();
 		this.id = id;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public boolean isDisabled() {
-		return disabled;
-	}
-
-	public void setDisabled(boolean disabled) {
-		this.disabled = disabled;
-	}
-
-	public String getUri() {
-		return uri;
-	}
-
-	public void setUri(String uri) {
-		this.uri = uri;
-	}
-
-	public Integer getAction() {
-		return action;
-	}
-
-	public void setAction(Integer action) {
-		this.action = action;
 	}
 
 }

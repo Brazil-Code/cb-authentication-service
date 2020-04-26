@@ -15,19 +15,15 @@ import br.com.brazilcode.cb.libs.model.User;
 import br.com.brazilcode.cb.libs.repository.UserRepository;
 
 /**
- * Classe responsável por aplicar as regras de negócio para os serviços de
- * usuário.
+ * Class responsible for applying the business rules for the Users services.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 25 de fev de 2020 15:04:13
+ * @since Apr 26, 2020 2:00:10 AM
  * @version 1.0
  */
 @Service
 public class UserService implements Serializable {
 
-	/**
-	 * Atributo serialVersionUID
-	 */
 	private static final long serialVersionUID = -1667927672586384315L;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
@@ -42,8 +38,7 @@ public class UserService implements Serializable {
 	private CryptPasswordGeneratorUtils cryptUtils;
 
 	/**
-	 * Método responsável por buscar um usuário no banco de dados pelo username e
-	 * password.
+	 * Method responsible for searching for a {@link User} by the given username and password.
 	 *
 	 * @author Brazil Code - Gabriel Guarido
 	 * @param username
@@ -78,11 +73,11 @@ public class UserService implements Serializable {
 	}
 
 	/**
-	 * Método responsável por atualizar o token de autenticação do usuário.
+	 * Method responsible for updating the {@link User}'s auth token.
 	 *
 	 * @author Brazil Code - Gabriel Guarido
-	 * @param usuario
-	 * @throws UsuarioServiceException
+	 * @param user
+	 * @throws UserServiceException
 	 */
 	public void updateToken(UserDTO user) throws UserServiceException {
 		final String method = "[ UserService.updateToken ] - ";

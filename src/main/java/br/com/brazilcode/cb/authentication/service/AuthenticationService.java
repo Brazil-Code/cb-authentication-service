@@ -18,17 +18,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.com.brazilcode.cb.authentication.dto.AccountCredentialsDTO;
 import br.com.brazilcode.cb.authentication.dto.UserDTO;
 
+/**
+ * Class responsible for providing a authentication service applying the business rules.
+ *
+ * @author Brazil Code - Gabriel Guarido
+ * @since Apr 26, 2020 1:58:40 AM
+ * @version 1.0
+ */
 @Component
 public class AuthenticationService {
 
-	/**
-	 * Atributo LOGGER
-	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationService.class);
 
-	/**
-	 * Atributo usuarioIntegrationService
-	 */
 	@Autowired
 	private UserService userService;
 
@@ -42,13 +43,11 @@ public class AuthenticationService {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public Authentication login(final HttpServletRequest request)
-			throws AuthenticationException, IOException, ServletException {
+	public Authentication login(final HttpServletRequest request) throws AuthenticationException, IOException, ServletException {
 		final String method = "[ AuthenticationService.login ] - ";
 		LOGGER.debug(method + "BEGIN");
 
-		final AccountCredentialsDTO credentials = new ObjectMapper().readValue(request.getInputStream(),
-				AccountCredentialsDTO.class);
+		final AccountCredentialsDTO credentials = new ObjectMapper().readValue(request.getInputStream(), AccountCredentialsDTO.class);
 
 		final String username = credentials.getUsername(), password = credentials.getPassword();
 
@@ -56,8 +55,7 @@ public class AuthenticationService {
 			LOGGER.debug(method + "Searching for user in database...");
 			final UserDTO user = userService.findByUsernameAndPassword(username, password);
 
-			final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username,
-					password);
+			final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
 			authToken.setDetails(user);
 
 			LOGGER.debug(method + "Returning authentication token...");

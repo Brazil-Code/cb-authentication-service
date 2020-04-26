@@ -7,10 +7,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 /**
- * Classe utilitária para Beans.
+ * Utility class for Beans.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 25 de fev de 2020 14:52:23
+ * @since Apr 26, 2020 2:02:10 AM
  * @version 1.0
  */
 @Component
