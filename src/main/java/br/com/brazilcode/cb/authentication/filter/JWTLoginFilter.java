@@ -32,10 +32,10 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 /**
- * Classe responsável por aplicar o filtro de login com autenticação JWT.
+ * Class responsible for applying login filter with JWT authentication.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 25 de fev de 2020 14:46:28
+ * @since Apr 26, 2020 1:55:17 AM
  * @version 1.0
  */
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
@@ -66,8 +66,8 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	}
 
 	@Override
-	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-			FilterChain filterChain, Authentication auth) throws IOException, ServletException {
+	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain,
+			Authentication auth) throws IOException, ServletException {
 		final String method = "[ JWTLoginFilter.successfulAuthentication ] - ";
 		try {
 			LOGGER.debug(method + "Successful Authentication");

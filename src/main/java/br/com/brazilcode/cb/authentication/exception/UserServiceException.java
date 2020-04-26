@@ -3,11 +3,10 @@ package br.com.brazilcode.cb.authentication.exception;
 import br.com.brazilcode.cb.libs.exception.BaseException;
 
 /**
- * Classe responsável por configurar uma exceção personalizada para o serviço de
- * integração com usuários.
+ * Class responsible for creating a customized Exception for User integration errors.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 25 de fev de 2020 16:13:46
+ * @since Apr 26, 2020 1:51:35 AM
  * @version 1.0
  */
 public class UserServiceException extends BaseException {

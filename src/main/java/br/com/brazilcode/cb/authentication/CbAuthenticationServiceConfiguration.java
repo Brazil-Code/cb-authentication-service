@@ -7,10 +7,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Classe responsável por configurar a inicialização da aplicação.
+ * Class responsible for configurating the application initializations.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 25 de fev de 2020 17:22:23
+ * @since Apr 26, 2020 2:12:37 AM
  * @version 1.0
  */
 @ComponentScan("br.com.brazilcode.cb.authentication.utils")

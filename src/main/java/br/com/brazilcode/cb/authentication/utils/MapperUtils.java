@@ -12,11 +12,10 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Classe utilitária para parse de objetos de diferentes tipos. Exemplo: DTO ->
- * Entity
+ * Utility class for parsing objects - Egg. DTO -> Entity
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 9 de mar de 2020 22:48:47
+ * @since Apr 26, 2020 2:05:07 AM
  * @version 1.0
  */
 @Component
@@ -27,7 +26,7 @@ public class MapperUtils {
 	private Mapper mapper;
 
 	/**
-	 * Método responsável por fazer o parse de um objeto para uma classe target.
+	 * Method responsible for parsing a given object into the given target class.
 	 *
 	 * @author Brazil Code - Gabriel Guarido
 	 * @param <T>
@@ -40,8 +39,7 @@ public class MapperUtils {
 	}
 
 	/**
-	 * Método responsável por fazer o parse de um objeto Optional para uma classe
-	 * target.
+	 * Method responsible for parsing a given object into a Optional object of the given target class.
 	 *
 	 * @author Brazil Code - Gabriel Guarido
 	 * @param <T>
@@ -54,8 +52,7 @@ public class MapperUtils {
 	}
 
 	/**
-	 * Método responsável por fazer o parse de uma Lista de objetos para uma classe
-	 * target.
+	 * Method responsible for parsing a given List of objects into the given target class.
 	 *
 	 * @author Brazil Code - Gabriel Guarido
 	 * @param <T>
@@ -73,8 +70,7 @@ public class MapperUtils {
 	}
 
 	/**
-	 * Método responsável por fazer o parse de uma lista de objetos optional para
-	 * uma classe target.
+	 * Method responsible for parsing a given List of objects into a Optional object of the given target class.
 	 *
 	 * @author Brazil Code - Gabriel Guarido
 	 * @param <T>
@@ -87,8 +83,7 @@ public class MapperUtils {
 	}
 
 	/**
-	 * Método responsável por fazer o parse lazy de um objeto para uma classe
-	 * target.
+	 * Method responsible for lazy parsing a given object into the given target class.
 	 *
 	 * @author Brazil Code - Gabriel Guarido
 	 * @param <T>
@@ -107,8 +102,7 @@ public class MapperUtils {
 	}
 
 	/**
-	 * Método responsável por fazer o parse lazy de um objeto optional para uma
-	 * classe target.
+	 * Method responsible for lazy parsing a given object into a Optional object of the given target class.
 	 *
 	 * @author Brazil Code - Gabriel Guarido
 	 * @param <T>
