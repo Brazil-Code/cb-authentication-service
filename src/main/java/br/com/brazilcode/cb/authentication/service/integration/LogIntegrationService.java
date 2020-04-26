@@ -2,8 +2,6 @@ package br.com.brazilcode.cb.authentication.service.integration;
 
 import java.io.Serializable;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import br.com.brazilcode.cb.authentication.constants.LoginConstants;
 import br.com.brazilcode.cb.authentication.exception.integration.LogIntegrationServiceException;
 import br.com.brazilcode.cb.libs.dto.LogDTO;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Class responsible for integrating with the Log Service of the Administration module.
@@ -23,11 +22,10 @@ import br.com.brazilcode.cb.libs.dto.LogDTO;
  * @version 1.0
  */
 @Service
+@Slf4j
 public class LogIntegrationService implements Serializable {
 
 	private static final long serialVersionUID = 1390649214746113731L;
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(LogIntegrationService.class);
 
 	@Value("${cb.administration.service.url}")
 	private String administrationServiceURL;
@@ -44,29 +42,29 @@ public class LogIntegrationService implements Serializable {
 	@Async
 	public void createLog(Long userId, String description, String authorization) throws LogIntegrationServiceException {
 		final String method = "[ LogIntegrationService ] - ";
-		LOGGER.info(method + "BEGIN");
+		log.info(method + "BEGIN");
 
 		RestTemplate restTemplate = new RestTemplate();
 		final String url = administrationServiceURL + "logs";
 
-		LOGGER.info(method + "User ID: " + userId);
+		log.info(method + "User ID: " + userId);
 		LogDTO logDTO = new LogDTO(userId, description);
 
-		LOGGER.info(method + "Setting HTTP Headers");
+		log.info(method + "Setting HTTP Headers");
 		HttpHeaders headers = new HttpHeaders();
 		headers.set(LoginConstants.HEADER_STRING, authorization);
 
-		LOGGER.info(method + "Building request");
+		log.info(method + "Building request");
 		HttpEntity<LogDTO> request = new HttpEntity<>(logDTO, headers);
 
 		try {
-			LOGGER.info(method + "Calling the following URL: " + url);
+			log.info(method + "Calling the following URL: " + url);
 			restTemplate.postForEntity(url, request, null);
 		} catch (Exception e) {
-			LOGGER.error(method + e.getMessage(), e);
+			log.error(method + e.getMessage(), e);
 			throw new LogIntegrationServiceException(e.getMessage(), e);
 		} finally {
-			LOGGER.info(method + "END");
+			log.info(method + "END");
 		}
 	}
 
