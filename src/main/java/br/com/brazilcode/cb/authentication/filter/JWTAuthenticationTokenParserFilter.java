@@ -8,8 +8,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +18,7 @@ import br.com.brazilcode.cb.authentication.constants.LoginConstants;
 import br.com.brazilcode.cb.authentication.dto.UserDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Classe responsável por aplicar o filtro de verificação do JWT nas requisições.
@@ -29,9 +28,8 @@ import io.jsonwebtoken.Jwts;
  * @version 1.0
  */
 @Component
+@Slf4j
 public class JWTAuthenticationTokenParserFilter extends GenericFilterBean {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(JWTAuthenticationTokenParserFilter.class);
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -55,7 +53,7 @@ public class JWTAuthenticationTokenParserFilter extends GenericFilterBean {
 					SecurityContextHolder.getContext().setAuthentication(authentication);
 				}
 			} catch (Exception e) {
-				LOGGER.error("JWT - Invalid Token: {} - {} - ERROR: {}", token, servletRequest.getRequestURI(), e.getMessage());
+				log.error("JWT - Invalid Token: {} - {} - ERROR: {}", token, servletRequest.getRequestURI(), e.getMessage());
 			}
 		}
 

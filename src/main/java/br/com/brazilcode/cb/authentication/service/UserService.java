@@ -2,8 +2,6 @@ package br.com.brazilcode.cb.authentication.service;
 
 import java.io.Serializable;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +11,7 @@ import br.com.brazilcode.cb.authentication.utils.CryptPasswordGeneratorUtils;
 import br.com.brazilcode.cb.authentication.utils.MapperUtils;
 import br.com.brazilcode.cb.libs.model.User;
 import br.com.brazilcode.cb.libs.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Class responsible for applying the business rules for the Users services.
@@ -22,11 +21,10 @@ import br.com.brazilcode.cb.libs.repository.UserRepository;
  * @version 1.0
  */
 @Service
+@Slf4j
 public class UserService implements Serializable {
 
 	private static final long serialVersionUID = -1667927672586384315L;
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
 
 	@Autowired
 	private UserRepository userDAO;
@@ -48,27 +46,27 @@ public class UserService implements Serializable {
 	 */
 	public UserDTO findByUsernameAndPassword(String username, String password) throws UserServiceException {
 		final String method = "[ UserIntegrationService.findByUsernameAndPassword ] - ";
-		LOGGER.info(method + "BEGIN");
+		log.info(method + "BEGIN");
 
 		try {
-			LOGGER.info(method + "Encrypting password");
+			log.info(method + "Encrypting password");
 			String passwordEncoded = cryptUtils.cryptString(password);
 			User user = userDAO.findByUsernameAndPassword(username, passwordEncoded);
 
 			if (user == null) {
-				LOGGER.error(method + "Invalid username/password");
+				log.error(method + "Invalid username/password");
 				throw new UserServiceException("Invalid username/password");
 			}
 
 			UserDTO userDTO = mapperUtils.parse(user, UserDTO.class);
 
-			LOGGER.info(method + "User found: " + userDTO.getUsername());
+			log.info(method + "User found: " + userDTO.getUsername());
 			return userDTO;
 		} catch (Exception e) {
-			LOGGER.error(method + "ERROR: ", e);
+			log.error(method + "ERROR: ", e);
 			throw new UserServiceException("ERROR while searching for user: { " + username + " } in database: ");
 		} finally {
-			LOGGER.info(method + "END");
+			log.info(method + "END");
 		}
 	}
 
@@ -81,8 +79,8 @@ public class UserService implements Serializable {
 	 */
 	public void updateToken(UserDTO user) throws UserServiceException {
 		final String method = "[ UserService.updateToken ] - ";
-		LOGGER.info(method + "BEGIN");
-		LOGGER.info(method + "User ID: " + user.getId());
+		log.info(method + "BEGIN");
+		log.info(method + "User ID: " + user.getId());
 		try {
 			if (user.getId() != null) {
 				userDAO.updateTokenById(user.getToken(), user.getId());
@@ -90,10 +88,10 @@ public class UserService implements Serializable {
 				throw new UserServiceException(method + "No user ID informed");
 			}
 		} catch (Exception e) {
-			LOGGER.error(method + "ERROR: ", e);
+			log.error(method + "ERROR: ", e);
 			throw new UserServiceException(method + "ERROR while updating user: " + user);
 		} finally {
-			LOGGER.info(method + "END");
+			log.info(method + "END");
 		}
 	}
 
