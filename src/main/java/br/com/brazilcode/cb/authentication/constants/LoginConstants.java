@@ -1,11 +1,11 @@
 package br.com.brazilcode.cb.authentication.constants;
 
 /**
- * Classe responsável por armazenar as informações configuração de login da
- * aplicação.
+ * Class responsible for storing the application's login configuration
+ * information.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 25 de fev de 2020 14:42:24
+ * @since Apr 26, 2020 1:44:09 AM
  * @version 1.0
  */
 public class LoginConstants {

@@ -9,8 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,17 +28,17 @@ import br.com.brazilcode.cb.authentication.utils.BeanUtils;
 import br.com.brazilcode.cb.libs.enumerator.LogActivityTypeEnum;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * Classe responsável por aplicar o filtro de login com autenticação JWT.
+ * Class responsible for applying login filter with JWT authentication.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 25 de fev de 2020 14:46:28
+ * @since Apr 26, 2020 1:55:17 AM
  * @version 1.0
  */
+@Slf4j
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(JWTLoginFilter.class);
 
 	@Autowired
 	private AuthenticationService authenticationService;
@@ -66,11 +64,11 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 	}
 
 	@Override
-	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
-			FilterChain filterChain, Authentication auth) throws IOException, ServletException {
+	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain,
+			Authentication auth) throws IOException, ServletException {
 		final String method = "[ JWTLoginFilter.successfulAuthentication ] - ";
 		try {
-			LOGGER.debug(method + "Successful Authentication");
+			log.info(method + "Successful Authentication");
 			UserDTO user = (UserDTO) auth.getDetails();
 			String JWT = Jwts.builder().setId(UUID.randomUUID().toString()).setSubject(auth.getName())
 					.claim(LoginConstants.USER_ID, user.getId())
@@ -80,17 +78,17 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 			user.setToken(LoginConstants.TOKEN_PREFIX + " " + JWT);
 			response.addHeader(LoginConstants.HEADER_STRING, user.getToken());
 
-			LOGGER.debug(method + "Updating user token");
+			log.info(method + "Updating user token");
 			this.userIntegrationService.updateToken(user);
 
 			response.getOutputStream().write(new ObjectMapper().writeValueAsBytes(user));
 			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-			LOGGER.debug(method + "Registering activity log");
+			log.info(method + "Registering activity log");
 			final String description = LogActivityTypeEnum.LOG_IN.getDescription();
 			this.logIntegrationService.createLog(user.getId(), description, user.getToken());
 		} catch (final Exception e) {
-			LOGGER.error(method + "ERROR: " + e.getMessage(), e);
+			log.error(method + "ERROR: " + e.getMessage(), e);
 			throw new ServletException("ERROR during authentication", e);
 		}
 	}

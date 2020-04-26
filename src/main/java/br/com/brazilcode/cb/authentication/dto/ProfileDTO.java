@@ -3,50 +3,30 @@ package br.com.brazilcode.cb.authentication.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.brazilcode.cb.libs.model.Profile;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
- * Classe responsável por agrupar e mapear as informações de ProfileDTO.
+ * Class responsible for grouping and mapping {@link Profile} information.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 25 de fev de 2020 13:38:02
- * @version 1.0
+ * @since Apr 26, 2020 1:35:06 AM
+ * @version 2.0
  */
+@Getter
+@Setter
+@NoArgsConstructor
 public class ProfileDTO {
 
 	private Long id;
 	private String description;
 	private List<FunctionalityDTO> functionalities = new ArrayList<>();
 
-	public ProfileDTO() {
-		super();
-	}
-
 	public ProfileDTO(Long id) {
 		this();
 		this.id = id;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public List<FunctionalityDTO> getFunctionalities() {
-		return functionalities;
-	}
-
-	public void setFunctionalities(List<FunctionalityDTO> functionalities) {
-		this.functionalities = functionalities;
 	}
 
 }

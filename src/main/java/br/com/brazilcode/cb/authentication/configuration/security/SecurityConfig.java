@@ -15,10 +15,10 @@ import br.com.brazilcode.cb.authentication.filter.JWTAuthenticationTokenParserFi
 import br.com.brazilcode.cb.authentication.filter.JWTLoginFilter;
 
 /**
- * Classe responsável por habilitar as configurações de segurança da aplicação.
+ * Class responsible for to enable security configuration in the application.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 25 de fev de 2020 13:16:02
+ * @since Apr 26, 2020 1:39:33 AM
  * @version 1.0
  */
 @Configuration
@@ -40,17 +40,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-		http.csrf().disable().authorizeRequests().antMatchers("/").permitAll()
-				.antMatchers(HttpMethod.POST, LoginConstants.LOGIN_URI).permitAll()
-				.antMatchers(HttpMethod.GET, LoginConstants.SERVER_DATE_URI).permitAll()
-				.antMatchers(AUTH_WHITELIST).permitAll()
-				.anyRequest().authenticated()
-				.and()
-				// Filtrando requisicoes api/login
-				.addFilterBefore(new JWTLoginFilter(LoginConstants.LOGIN_URI, authenticationManager()),
-						UsernamePasswordAuthenticationFilter.class)
-				// Filtrando todas as requisicoes para verificar a presenca do JWT no header
-				.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+		http.csrf()
+			.disable()
+			.authorizeRequests()
+			.antMatchers("/").permitAll()
+			.antMatchers(HttpMethod.POST, LoginConstants.LOGIN_URI).permitAll()
+			.antMatchers(HttpMethod.GET, LoginConstants.SERVER_DATE_URI).permitAll()
+			.antMatchers(AUTH_WHITELIST).permitAll()
+			.anyRequest().authenticated()
+			.and()
+			// Filtering requests with Username and Password authentication filter
+			.addFilterBefore(new JWTLoginFilter(LoginConstants.LOGIN_URI, authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 
 }

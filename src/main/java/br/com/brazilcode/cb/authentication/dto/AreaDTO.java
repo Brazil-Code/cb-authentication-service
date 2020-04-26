@@ -1,22 +1,20 @@
 package br.com.brazilcode.cb.authentication.dto;
 
+import br.com.brazilcode.cb.libs.model.Area;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
- * Classe responsável por agrupar e mapear as informações do AreaDTO.
+ * Class responsible for grouping and mapping {@link Area} information.
  *
  * @author Brazil Code - Gabriel Guarido
- * @since 28 de mar de 2020 12:09:43
- * @version 1.0
+ * @since Apr 26, 2020 1:31:17 AM
+ * @version 2.0
  */
+@Getter
+@Setter
 public class AreaDTO {
 
 	private String name;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 }
