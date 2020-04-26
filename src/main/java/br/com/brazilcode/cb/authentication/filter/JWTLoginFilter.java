@@ -70,7 +70,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 			Authentication auth) throws IOException, ServletException {
 		final String method = "[ JWTLoginFilter.successfulAuthentication ] - ";
 		try {
-			LOGGER.debug(method + "Successful Authentication");
+			LOGGER.info(method + "Successful Authentication");
 			UserDTO user = (UserDTO) auth.getDetails();
 			String JWT = Jwts.builder().setId(UUID.randomUUID().toString()).setSubject(auth.getName())
 					.claim(LoginConstants.USER_ID, user.getId())
@@ -80,13 +80,13 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 			user.setToken(LoginConstants.TOKEN_PREFIX + " " + JWT);
 			response.addHeader(LoginConstants.HEADER_STRING, user.getToken());
 
-			LOGGER.debug(method + "Updating user token");
+			LOGGER.info(method + "Updating user token");
 			this.userIntegrationService.updateToken(user);
 
 			response.getOutputStream().write(new ObjectMapper().writeValueAsBytes(user));
 			response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-			LOGGER.debug(method + "Registering activity log");
+			LOGGER.info(method + "Registering activity log");
 			final String description = LogActivityTypeEnum.LOG_IN.getDescription();
 			this.logIntegrationService.createLog(user.getId(), description, user.getToken());
 		} catch (final Exception e) {

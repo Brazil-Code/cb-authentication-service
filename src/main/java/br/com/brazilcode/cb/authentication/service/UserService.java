@@ -48,10 +48,10 @@ public class UserService implements Serializable {
 	 */
 	public UserDTO findByUsernameAndPassword(String username, String password) throws UserServiceException {
 		final String method = "[ UserIntegrationService.findByUsernameAndPassword ] - ";
-		LOGGER.debug(method + "BEGIN");
+		LOGGER.info(method + "BEGIN");
 
 		try {
-			LOGGER.debug(method + "Encrypting password");
+			LOGGER.info(method + "Encrypting password");
 			String passwordEncoded = cryptUtils.cryptString(password);
 			User user = userDAO.findByUsernameAndPassword(username, passwordEncoded);
 
@@ -62,13 +62,13 @@ public class UserService implements Serializable {
 
 			UserDTO userDTO = mapperUtils.parse(user, UserDTO.class);
 
-			LOGGER.debug(method + "User found: " + userDTO.getUsername());
+			LOGGER.info(method + "User found: " + userDTO.getUsername());
 			return userDTO;
 		} catch (Exception e) {
 			LOGGER.error(method + "ERROR: ", e);
 			throw new UserServiceException("ERROR while searching for user: { " + username + " } in database: ");
 		} finally {
-			LOGGER.debug(method + "END");
+			LOGGER.info(method + "END");
 		}
 	}
 
@@ -81,8 +81,8 @@ public class UserService implements Serializable {
 	 */
 	public void updateToken(UserDTO user) throws UserServiceException {
 		final String method = "[ UserService.updateToken ] - ";
-		LOGGER.debug(method + "BEGIN");
-		LOGGER.debug(method + "User ID: " + user.getId());
+		LOGGER.info(method + "BEGIN");
+		LOGGER.info(method + "User ID: " + user.getId());
 		try {
 			if (user.getId() != null) {
 				userDAO.updateTokenById(user.getToken(), user.getId());
@@ -93,7 +93,7 @@ public class UserService implements Serializable {
 			LOGGER.error(method + "ERROR: ", e);
 			throw new UserServiceException(method + "ERROR while updating user: " + user);
 		} finally {
-			LOGGER.debug(method + "END");
+			LOGGER.info(method + "END");
 		}
 	}
 
