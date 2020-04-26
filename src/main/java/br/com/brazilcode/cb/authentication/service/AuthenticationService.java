@@ -45,25 +45,25 @@ public class AuthenticationService {
 	 */
 	public Authentication login(final HttpServletRequest request) throws AuthenticationException, IOException, ServletException {
 		final String method = "[ AuthenticationService.login ] - ";
-		LOGGER.debug(method + "BEGIN");
+		LOGGER.info(method + "BEGIN");
 
 		final AccountCredentialsDTO credentials = new ObjectMapper().readValue(request.getInputStream(), AccountCredentialsDTO.class);
 
 		final String username = credentials.getUsername(), password = credentials.getPassword();
 
 		try {
-			LOGGER.debug(method + "Searching for user in database...");
+			LOGGER.info(method + "Searching for user in database...");
 			final UserDTO user = userService.findByUsernameAndPassword(username, password);
 
 			final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
 			authToken.setDetails(user);
 
-			LOGGER.debug(method + "Returning authentication token...");
+			LOGGER.info(method + "Returning authentication token...");
 			return authToken;
 		} catch (final Exception e) {
 			throw new ServletException(method + "ERROR during authentication", e);
 		} finally {
-			LOGGER.debug(method + "END");
+			LOGGER.info(method + "END");
 		}
 	}
 

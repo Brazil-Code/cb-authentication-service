@@ -44,29 +44,29 @@ public class LogIntegrationService implements Serializable {
 	@Async
 	public void createLog(Long userId, String description, String authorization) throws LogIntegrationServiceException {
 		final String method = "[ LogIntegrationService ] - ";
-		LOGGER.debug(method + "BEGIN");
+		LOGGER.info(method + "BEGIN");
 
 		RestTemplate restTemplate = new RestTemplate();
 		final String url = administrationServiceURL + "logs";
 
-		LOGGER.debug(method + "User ID: " + userId);
+		LOGGER.info(method + "User ID: " + userId);
 		LogDTO logDTO = new LogDTO(userId, description);
 
-		LOGGER.debug(method + "Setting HTTP Headers");
+		LOGGER.info(method + "Setting HTTP Headers");
 		HttpHeaders headers = new HttpHeaders();
 		headers.set(LoginConstants.HEADER_STRING, authorization);
 
-		LOGGER.debug(method + "Building request");
+		LOGGER.info(method + "Building request");
 		HttpEntity<LogDTO> request = new HttpEntity<>(logDTO, headers);
 
 		try {
-			LOGGER.debug(method + "Calling the following URL: " + url);
+			LOGGER.info(method + "Calling the following URL: " + url);
 			restTemplate.postForEntity(url, request, null);
 		} catch (Exception e) {
 			LOGGER.error(method + e.getMessage(), e);
 			throw new LogIntegrationServiceException(e.getMessage(), e);
 		} finally {
-			LOGGER.debug(method + "END");
+			LOGGER.info(method + "END");
 		}
 	}
 
